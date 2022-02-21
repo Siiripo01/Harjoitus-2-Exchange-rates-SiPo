@@ -1,6 +1,7 @@
 import {useState} from "react";
+import './App.css';
 
-const URL = 'http://api.exchangeratesapi.io/v1/latest?access_key=29dfeff3e6bcb3521cd8a130a0a05a53';
+const URL = "http://api.exchangeratesapi.io/v1/latest?access_key=";
 const API_KEY = '29dfeff3e6bcb3521cd8a130a0a05a53';
 
 function App() {
@@ -27,27 +28,27 @@ function App() {
       </form>
     </div>
   );
-}
 
-async function convert(e) {
-  e.preventDefault();
-  try {
-    const address = URL + API_KEY;
-    const response = await fetch(address);
-
-    if (response.ok) {
-      const json = await response.json();
-      console.log(json.rates.GBP);
-      SetRate(json.rates.GBP);
-
-      setGbp(eur * json.rates.GBP);
-    } else {
-      alert('Error retrieving exchange rate.');
-      console.log(response);
+  async function convert(e) {
+    e.preventDefault();
+    try {
+      const address = URL + API_KEY;
+      const response = await fetch(address);
+  
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json.rates.GBP);
+        setRate(json.rates.GBP);
+  
+        setGbp(eur * json.rates.GBP);
+      } else {
+        alert('Error retrieving exchange rate.');
+        console.log(response);
+      }
+    } catch (err) {
+      alert(err);
     }
-  } catch (err) {
-    alert(err);
-  }
+  }  
 }
 
 export default App; 
